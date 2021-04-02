@@ -1,11 +1,11 @@
 pipeline{
     agent any
     stages{
-        stage("Pre"){
-            steps{
-                sh("printenv")
-            }
-        }
+        // stage("Pre"){
+        //     steps{
+        //         sh("printenv")
+        //     }
+        // }
         stage("A"){
             when{ changeRequest target: 'master' }
             steps{
@@ -14,9 +14,9 @@ pipeline{
         }
         stage("Add file to branch"){
             steps{
-                // withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     script {
-                        def fileName = sh(script: "echo $RANDOM", returnStdout: true).trim()
+                        def fileName = sh(script: "echo \${RANDOM}", returnStdout: true).trim()
                         sh("""
                         touch $fileName
                         git add $fileName
@@ -24,7 +24,7 @@ pipeline{
                         git push origin $CHANGE_BRANCH
                         """)
                     }
-                // }
+                }
             }
         }
         stage("Add results to PR"){
