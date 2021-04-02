@@ -15,7 +15,9 @@ pipeline{
         stage("Add results to PR"){
             when{ changeRequest target: 'master' }
             steps{
-                pullRequest.comment('Tests passed...')
+                script{
+                    pullRequest.comment('Tests passed...')
+                }
             }
         }
     }
