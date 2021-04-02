@@ -16,7 +16,7 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     script {
-                        def fileName = sh(script: "echo \$RANDOM", returnStdout: true).trim()
+                        def fileName = sh(script: "echo $RANDOM", returnStdout: true).trim()
                         sh("""
                         touch $fileName
                         git add $fileName
