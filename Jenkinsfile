@@ -18,6 +18,8 @@ pipeline{
                     script {
                         def fileName = UUID.randomUUID().toString()
                         sh """
+                        git config user.email "$USERNAME@ABCD"
+                        git config user.name "Jenkins"
                         touch $fileName
                         git add $fileName
                         git commit -m "Added new file"
