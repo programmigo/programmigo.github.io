@@ -17,12 +17,12 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     script {
                         def fileName = sh(script: "echo \${RANDOM}", returnStdout: true).trim()
-                        sh("""
+                        sh """
                         touch $fileName
                         git add $fileName
                         git commit -m "Added new file"
                         git push origin $CHANGE_BRANCH
-                        """)
+                        """
                     }
                 }
             }
