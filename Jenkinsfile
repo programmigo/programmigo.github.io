@@ -20,11 +20,10 @@ pipeline{
                         sh """
                         git config user.email "$USERNAME@ABCD"
                         git config user.name "Jenkins"
-                        git checkout $CHANGE_BRANCH
                         touch $fileName
                         git add $fileName
                         git commit -m "Added new file"
-                        git push origin $CHANGE_BRANCH
+                        git push origin $BRANCH_NAME
                         """
                     }
                 }
