@@ -20,7 +20,9 @@ pipeline{
                         sh """
                         git config user.email "$USERNAME@ABCD"
                         git config user.name "Jenkins"
-                        git checkout origin/$CHANGE_BRANCH
+                        git config --add remote.origin.fetch +refs/heads/$CHANGE_BRANCH:refs/remotes/origin/$CHANGE_BRANCH # timeout=10
+                        git fetch --no-tags --progress -- https://github.com/programmigo/programmigo.github.io.git +refs/heads/$CHANGE_BRANCH:refs/remotes/origin/$CHANGE_BRANCH # timeout=10
+                        git checkout $CHANGE_BRANCH
                         touch $fileName
                         git add $fileName
                         git commit -m "Added new file"
